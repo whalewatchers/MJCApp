@@ -23,7 +23,7 @@
 		<div class="player-entry">
 			<p>West</p>
 			<select name="west_player">
-				<option disabled selected value> -- Select West Player (北) -- </option>
+				<option disabled selected value> -- Select West Player (西) -- </option>
 				{{#each players}}
 					{{> jpn_player_select_west}}
 				{{/each}}
@@ -32,7 +32,7 @@
 		<div class="player-entry">
 			<p>North</p>
 			<select name="north_player">
-				<option disabled selected value> -- Select North Player (西) -- </option> 
+				<option disabled selected value> -- Select North Player (北) -- </option> 
 				{{#each players}}
 					{{> jpn_player_select_north}}
 				{{/each}}
@@ -61,23 +61,60 @@
 
 		<input type="button" value="Submit Hand" class="btn btn-primary btn-block submit_hand_button">
 
-		<u1>
+		<table style="width:100%">
+		<tr>
+			<th>Round</th>
+			<th>Bonus</th>
+			<th>Points</th>
+			<th>{{get_east}}</th>
+			<th>{{get_south}}</th>
+			<th>{{get_west}}</th>
+			<th>{{get_north}}</th>
+		</tr>
 		{{#each hands}}
 			{{> render_hand}}
 		{{/each}}
-		</u1>
+		</table>
 
 		<input type="button" value="Delete last Hand" class="btn btn-primary btn-block delete_hand_button">
 	</form>
 </template>
 
 <template name="render_hand">
-	{{#if is_dealin hand_type}}
-		<li>dealin</li>
-	{{/if}}
-	{{#if is_selfdraw hand_type}}
-		<li>selfdraw</li>
-	{{/if}}
+	<tr>
+		<td>
+			{{#if is_east_round round}}東{{/if}}
+			{{#if is_south_round round}}南{{/if}}
+			{{#if is_west_round round}}西{{/if}}
+			{{#if is_north_round round}}北{{/if}}
+			{{round}}
+		</td>
+		<td>B{{bonus}}</td>
+
+		{{#if is_dealin hand_type}}
+		<td>{{points}}</td>
+		<td>{{east_delta}}</td>
+		<td>{{south_delta}}</td>
+		<td>{{west_delta}}</td>
+		<td>{{north_delta}}</td>
+		{{/if}}
+
+		{{#if is_selfdraw hand_type}}
+		<td>{{points}}</td>
+		<td>{{east_delta}}</td>
+		<td>{{south_delta}}</td>
+		<td>{{west_delta}}</td>
+		<td>{{north_delta}}</td>
+		{{/if}}
+
+		{{#if is_nowin hand_type}}
+		<td>No win!</td>
+		{{/if}}
+
+		{{#if is_restart hand_type}}
+		<td>Reshuffle!</td>
+		{{/if}}
+	</tr>
 </template>
 
 <template name="jpn_player_select_east">
