@@ -110,7 +110,7 @@ Template.selfdraw.helpers({
 })
 
 Template.hongkong_new_game.events({
-	'click .player_select'(event) {
+	'mouseup .player_select, touchend .player_select'(event) {
 		if ( $( event.target ).hasClass( "east"))
 			Session.set("current_east", event.target.value);
 		else if ( $( event.target ).hasClass( "south" ))
@@ -119,6 +119,8 @@ Template.hongkong_new_game.events({
 			Session.set("current_west", event.target.value);
 		else if ( $( event.target ).hasClass( "north" ))
 			Session.set("current_north", event.target.value);
+
+		window.alert("sometext");
 	},
 	'click .winner'(event) {
 		if ( !$( event.target ).hasClass( "disabled" )) {
